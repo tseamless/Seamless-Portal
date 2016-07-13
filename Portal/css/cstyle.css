@@ -1,0 +1,34 @@
+﻿.top-menu {
+    width: 100%;
+    height: 70px;
+    display: block;
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+
+    border-style: solid;
+    border-top: hidden;
+    border-left: hidden;
+    border-right: hidden;
+    border-bottom: solid 1.5px rgba(128, 128, 128, 0.48) ;
+}
+
+.top-logo {
+    width: 45px; 
+    height: 45px;
+    margin-right: 8px;
+}
+
+.top-title {
+    margin-left: 8%;
+    margin-top: 16px;
+}
+
+.top-subtitle {
+    margin-left: 12px;
+    font-size: large;
+    font-style: italic;
+    font-weight: 500;
+}
