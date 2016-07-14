@@ -32,3 +32,11 @@
     font-style: italic;
     font-weight: 500;
 }
+
+.panel-body-blood-glucose {
+    height: 400px;
+}
+
+.panel-body-timeline {
+    height: 300px;
+}

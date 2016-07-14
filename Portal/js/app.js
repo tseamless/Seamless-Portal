@@ -308,6 +308,7 @@ $(document).ready(function () {
 
     function getInformations() {
         $('ul.informations').append('<li>Paradigm Veo 754 (insulin pump)</li>');
+        $('ul.informations').append('<li>CGMS (sensor)</li>');
     }
 
     function getBMI() {
@@ -371,6 +372,264 @@ $(document).ready(function () {
 
         return cellValue;
 
+    }
+
+    function bgChart() {
+        var res = [{ i: 1468386900, value: 6.3, date: "Jul. 13, 2016 07:15", unit: "mmol/l" },
+            { i: 1468392300, value: 5.1, date: "Jul. 13, 2016 08:45", unit: "mmol/l" },
+            { i: 1468399500, value: 9.7, date: "Jul. 13, 2016 10:45", unit: "mmol/l" },
+            { i: 1468407000, value: 7.7, date: "Jul. 13, 2016 12:50", unit: "mmol/l" },
+            { i: 1468415100, value: 11.4, date: "Jul. 13, 2016 15:05", unit: "mmol/l" },
+            { i: 1468431300, value: 4.7, date: "Jul. 13, 2016 19:35", unit: "mmol/l" },
+            { i: 1468442100, value: 5.1, date: "Jul. 13, 2016 22:35", unit: "mmol/l" }];
+       
+        var last_measurement = res[res.length - 1].date + ' | <b>' + res[res.length - 1].value + ' ' + res[res.length - 1].unit + '</b>';
+        $('#last_bg_measurement').append(last_measurement);
+
+        new Morris.Line({
+            element: 'blood-glucose-chart',
+            data: res,
+            hideHover: 'auto',
+            xkey: 'i',
+            ykeys: ['value'],
+            labels: ['Blood glucose (mmol/l)'],
+            xLabelFormat: function (x) {
+                var date = new Date(x * 1000);
+                return (date.toTimeString().split(' ')[0].substring(0, 5));
+            },
+            dateFormat: function (x) {
+                var date = new Date(x * 1000);
+                var hours = "0" + date.getHours();
+                var minutes = "0" + date.getMinutes();
+                var time = hours.substr(-2) + ':' + minutes.substr(-2);
+                return (monthNames[date.getMonth()] + '. ' + date.getDay() + ', ' + date.getFullYear() + ' ' + time);
+            }
+        });
+    }
+
+    function activityChart() {
+        var res = [{ i: 1468360800, value: 0.00, date: "Jul. 13, 2016 00:00", unit: "km" },
+                 { i: 1468364400, value: 0.00, date: "Jul. 13, 2016 01:00", unit: "km" },
+                 { i: 1468368000, value: 0.00, date: "Jul. 13, 2016 02:00", unit: "km" },
+                 { i: 1468371600, value: 0.00, date: "Jul. 13, 2016 03:00", unit: "km" },
+                 { i: 1468375200, value: 0.00, date: "Jul. 13, 2016 04:00", unit: "km" },
+                 { i: 1468378800, value: 0.00, date: "Jul. 13, 2016 05:00", unit: "km" },
+                 { i: 1468382400, value: 0.00, date: "Jul. 13, 2016 06:00", unit: "km" },
+                 { i: 1468382400, value: 0.01, date: "Jul. 13, 2016 07:00", unit: "km" },
+                 { i: 1468386000, value: 0.69, date: "Jul. 13, 2016 08:00", unit: "km" },
+                 { i: 1468389600, value: 0.03, date: "Jul. 13, 2016 09:00", unit: "km" },
+                 { i: 1468393200, value: 0.01, date: "Jul. 13, 2016 10:00", unit: "km" },
+                 { i: 1468396800, value: 0.01, date: "Jul. 13, 2016 11:00", unit: "km" },
+                 { i: 1468400400, value: 0.00, date: "Jul. 13, 2016 12:00", unit: "km" },
+                 { i: 1468404000, value: 0.00, date: "Jul. 13, 2016 13:00", unit: "km" },
+                 { i: 1468407600, value: 0.04, date: "Jul. 13, 2016 14:00", unit: "km" },
+                 { i: 1468411200, value: 0.00, date: "Jul. 13, 2016 15:00", unit: "km" },
+                 { i: 1468414800, value: 1.35, date: "Jul. 13, 2016 16:00", unit: "km" },
+                 { i: 1468418400, value: 1.31, date: "Jul. 13, 2016 17:00", unit: "km" },
+                 { i: 1468422000, value: 0.00, date: "Jul. 13, 2016 18:00", unit: "km" },
+                 { i: 1468425600, value: 0.18, date: "Jul. 13, 2016 19:00", unit: "km" },
+                 { i: 1468429200, value: 0.70, date: "Jul. 13, 2016 20:00", unit: "km" },
+                 { i: 1468432800, value: 0.09, date: "Jul. 13, 2016 21:00", unit: "km" },
+                 { i: 1468436400, value: 0.17, date: "Jul. 13, 2016 22:00", unit: "km" },
+                 { i: 1468440000, value: 1.33, date: "Jul. 13, 2016 23:00", unit: "km" }];
+
+        var last_measurement = res[res.length - 1].date + ' | <b>' + res[res.length - 1].value + ' ' + res[res.length - 1].unit + '</b>';
+        $('#last_activity_measurement').append(last_measurement);
+
+        new Morris.Bar({
+            element: 'activity-chart',
+            data: res,
+            hideHover: 'auto',
+            xkey: 'date',
+            ykeys: ['value'],
+            labels: ['Activity (km)'],
+            xLabelFormat: function (x) {
+                return (x.label.split(' ')[3]);
+            }
+        });
+    }
+
+    function mealChart() {
+        var res = [{ i: 1468392300, oh: 75, date: "Jul. 13, 2016 08:45", unit_oh: "g", insulin: 8.8, unit_i: "U" },
+            { i: 1468399500, oh: 0, date: "Jul. 13, 2016 10:45", unit_oh: "g", insulin: 2.8, unit_i: "U" },
+            { i: 1468407000, oh: 90, date: "Jul. 13, 2016 12:50", unit_oh: "g", insulin: 11.6, unit_i: "U" },
+            { i: 1468415100, oh: 25, date: "Jul. 13, 2016 17:20", unit_oh: "g", insulin: 2, unit_i: "U" },
+            { i: 1468431300, oh: 60, date: "Jul. 13, 2016 19:35", unit_oh: "g", insulin: 5.5, unit_i: "U" }];
+
+        new Morris.Bar({
+            element: 'meal-chart',
+            data: res,
+            hideHover: 'auto',
+            xkey: 'date',
+            ykeys: ['oh', 'insulin'],
+            labels: ['Carbohydrates (g)', 'Units (U)'],
+            xLabelFormat: function (x) {
+                return (x.label.split(' ')[3]);
+            }
+        });
+    }
+
+    function summaryChart() {
+        $(function () {
+            var bg = [[Date.UTC(2016, 7, 13, 7, 15, 0), 6.3],
+                    [Date.UTC(2016, 7, 13, 8, 45, 0), 5.1],
+                    [Date.UTC(2016, 7, 13, 10, 45, 0), 9.7],
+                    [Date.UTC(2016, 7, 13, 12, 50, 0), 7.7],
+                    [Date.UTC(2016, 7, 13, 15, 05, 0), 11.4],
+                    [Date.UTC(2016, 7, 13, 19, 35, 0), 4.7],
+                    [Date.UTC(2016, 7, 13, 22, 35, 0), 5.1]];
+            var activity = [[Date.UTC(2016, 7, 13, 0, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 1, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 2, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 3, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 4, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 5, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 6, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 7, 0, 0), 0.01],
+                         [Date.UTC(2016, 7, 13, 8, 0, 0), 0.69],
+                         [Date.UTC(2016, 7, 13, 9, 0, 0), 0.03],
+                         [Date.UTC(2016, 7, 13, 10, 0, 0), 0.01],
+                         [Date.UTC(2016, 7, 13, 11, 0, 0), 0.01],
+                         [Date.UTC(2016, 7, 13, 12, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 13, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 14, 0, 0), 0.04],
+                         [Date.UTC(2016, 7, 13, 15, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 16, 0, 0), 1.35],
+                         [Date.UTC(2016, 7, 13, 17, 0, 0), 1.31],
+                         [Date.UTC(2016, 7, 13, 18, 0, 0), 0.00],
+                         [Date.UTC(2016, 7, 13, 19, 0, 0), 0.18],
+                         [Date.UTC(2016, 7, 13, 20, 0, 0), 0.70],
+                         [Date.UTC(2016, 7, 13, 21, 0, 0), 0.09],
+                         [Date.UTC(2016, 7, 13, 22, 0, 0), 0.17],
+                         [Date.UTC(2016, 7, 13, 23, 0, 0), 1.33]];
+
+            var carbs = [[Date.UTC(2016, 7, 13, 8, 50, 0), 0],
+                        [Date.UTC(2016, 7, 13, 12, 50, 0), 0]];
+            var carbs_data = [75, 0, 90, 25, 60];
+            var insul_data = [8.8, 2.8, 11.6, 2, 5.5];
+
+            $('#blood-glucose-chart').highcharts({
+                chart: {
+                    zoomType: 'xy'
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: [{
+                    type: 'datetime'
+                }],
+                yAxis: [{
+                    gridLineWidth: 0,
+                    title: {
+                        text: 'Blood glucose',
+                        style: {
+                            color: Highcharts.getOptions().colors[0]
+                        }
+                    },
+                    labels: {
+                        format: '{value} mmol/l',
+                        style: {
+                            color: Highcharts.getOptions().colors[0]
+                        }
+                    }
+                }, {
+                    gridLineWidth: 0,
+                    title: {
+                        text: 'Activity',
+                        style: {
+                            color: Highcharts.getOptions().colors[0]
+                        }
+                    },
+                    labels: {
+                        format: '{value} km',
+                        style: {
+                            color: Highcharts.getOptions().colors[0]
+                        }
+                    },
+                    opposite: true
+                }, {
+                    gridLineWidth: 0,
+                    title: {
+                        text: 'Carbohydrates & Insulin',
+                        style: {
+                            color: Highcharts.getOptions().colors[0]
+                        },
+                        enabled: false
+                    },
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    gridLineColor: 'transparent',
+                    lineColor: 'transparent',
+                    labels: {
+                        enabled: false
+                    },
+                    minorTickLength: 0,
+                    tickLength: 0,
+                    opposite: false
+                }],
+                tooltip: {
+                    formatter: function () {
+                        var date = new Date(this.x);
+                        var hours = "0" + (date.getHours() - 2);
+                        var minutes = "0" + date.getMinutes();
+                        var time = hours.substr(-2) + ':' + minutes.substr(-2);
+                        var date_time = (monthNames[date.getMonth()] + '. ' + date.getDate() + ', ' + date.getFullYear() + ' ' + time);
+
+                        if (this.series.name == "Blood glucose") {
+                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Blood glucose : <b>' + this.y + ' mmol/l</b><br/>';
+                        }
+                        if (this.series.name == "Activity") {
+                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Activity: <b>' + this.y + ' km</b><br/>';
+                        }
+                        if (this.series.name == "Carbohydrates & Insulin") {
+                            var index = this.point.index;
+                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Carbohydrates: <b>' + carbs_data[index] + ' g</b><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Insulin: <b>' + insul_data[index] + ' U</b>';
+                        }
+                        return "no data";
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    x: 100,
+                    verticalAlign: 'top',
+                    y: 0,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                series: [{
+                    name: 'Activity',
+                    type: 'column',
+                    yAxis: 1,
+                    data: activity,
+                    tooltip: {
+                        valueSuffix: ' km'
+                    }
+                }, {
+                    name: 'Blood glucose',
+                    type: 'spline',
+                    yAxis: 0,
+                    data: bg,
+                    tooltip: {
+                        valueSuffix: ' mmol/l'
+                    }
+                }, {
+                    name: 'Carbohydrates & Insulin',
+                    yAxis: 2,
+                    data: carbs,
+                    lineWidth: 0,
+                    marker: {
+                        enabled: true,
+                        radius: 6
+                    },
+                    states: {
+                        hover: {
+                            lineWidthPlus: 0
+                        }
+                    }
+                }]
+            });
+        });
     }
 
     // Helper functions (dates)
@@ -525,8 +784,12 @@ $(document).ready(function () {
                 getMedications(),
                 getProblems(),
                 getBloodPressure()
-            ).then(getBMI)
-             .then(getInformations)
+            ).then(summaryChart)
+             //.then(bgChart)
+             //.then(activityChart)
+             //.then(mealChart)
+             //.then(getBMI)
+             //.then(getInformations)
              .then(logout)
         });
     });
