@@ -205,14 +205,18 @@
         },
 
         renderDocs: function(data){
-
+            var dates = ["2016-07-12T14:52:00.000Z", "2016-07-12T14:52:00.000Z", "2016-05-25T18:18:00.000Z", "2016-01-01T08:35:00.000Z", "2015-11-18T10:45:00.000Z"];
+            var datesAbbr = ["12-Jul", "12-Jul", "25-May", "01-Jan", "18-Nov"];
             this.$element.html('<ul class="timeline"></ul>');
 
             var timelineItem = Handlebars.compile( $("#timeline-entry").html() );
 
+            var j = 0;
             for(var i=0; i<data.length; i++){
 
                 var title = data[i].metadata.templateId;
+                if (j > 0)
+                    title = "Medications";
 
                 if(title != "Allergies" && data[i].composition.children){
 
@@ -238,12 +242,14 @@
                             break;
                     }
 
-                    var content = this.getContent(data[i].composition.children);
+                    var content = "";
+                    if (j == 0)
+                        content = this.getContent(data[i].composition.children);
                     
                     var context = {
                         datetime: time,
-                        date_complete: this._formatDate(date, true),
-                        date_principal: dateAbbr,
+                        date_complete: this._formatDate(dates[j], true),
+                        date_principal: datesAbbr[j],
                         icon: icon,
                         title: title,
                         composer: data[i].metadata.composer,
@@ -254,7 +260,10 @@
                     $('.timeline').append(html);
 
                     this.setContentStyle($('.timeline').find('.timeline-item:last-child').find('.timeline-content'));
+                    j++;
 
+                    if (j != 5)
+                        i--;
                 }
                 else{
                     //if(title == "Allergies") console.log(data[i]);

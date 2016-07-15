@@ -80,6 +80,7 @@ $(document).ready(function () {
                 var party = data.party;
 
                 // Name
+                party.firstNames = "Luka";
                 if (party.lastNames == undefined)
                     party.lastNames = "";
                 $("#patient-name").html(party.firstNames + ' ' + party.lastNames);
@@ -374,101 +375,6 @@ $(document).ready(function () {
 
     }
 
-    function bgChart() {
-        var res = [{ i: 1468386900, value: 6.3, date: "Jul. 13, 2016 07:15", unit: "mmol/l" },
-            { i: 1468392300, value: 5.1, date: "Jul. 13, 2016 08:45", unit: "mmol/l" },
-            { i: 1468399500, value: 9.7, date: "Jul. 13, 2016 10:45", unit: "mmol/l" },
-            { i: 1468407000, value: 7.7, date: "Jul. 13, 2016 12:50", unit: "mmol/l" },
-            { i: 1468415100, value: 11.4, date: "Jul. 13, 2016 15:05", unit: "mmol/l" },
-            { i: 1468431300, value: 4.7, date: "Jul. 13, 2016 19:35", unit: "mmol/l" },
-            { i: 1468442100, value: 5.1, date: "Jul. 13, 2016 22:35", unit: "mmol/l" }];
-       
-        var last_measurement = res[res.length - 1].date + ' | <b>' + res[res.length - 1].value + ' ' + res[res.length - 1].unit + '</b>';
-        $('#last_bg_measurement').append(last_measurement);
-
-        new Morris.Line({
-            element: 'blood-glucose-chart',
-            data: res,
-            hideHover: 'auto',
-            xkey: 'i',
-            ykeys: ['value'],
-            labels: ['Blood glucose (mmol/l)'],
-            xLabelFormat: function (x) {
-                var date = new Date(x * 1000);
-                return (date.toTimeString().split(' ')[0].substring(0, 5));
-            },
-            dateFormat: function (x) {
-                var date = new Date(x * 1000);
-                var hours = "0" + date.getHours();
-                var minutes = "0" + date.getMinutes();
-                var time = hours.substr(-2) + ':' + minutes.substr(-2);
-                return (monthNames[date.getMonth()] + '. ' + date.getDay() + ', ' + date.getFullYear() + ' ' + time);
-            }
-        });
-    }
-
-    function activityChart() {
-        var res = [{ i: 1468360800, value: 0.00, date: "Jul. 13, 2016 00:00", unit: "km" },
-                 { i: 1468364400, value: 0.00, date: "Jul. 13, 2016 01:00", unit: "km" },
-                 { i: 1468368000, value: 0.00, date: "Jul. 13, 2016 02:00", unit: "km" },
-                 { i: 1468371600, value: 0.00, date: "Jul. 13, 2016 03:00", unit: "km" },
-                 { i: 1468375200, value: 0.00, date: "Jul. 13, 2016 04:00", unit: "km" },
-                 { i: 1468378800, value: 0.00, date: "Jul. 13, 2016 05:00", unit: "km" },
-                 { i: 1468382400, value: 0.00, date: "Jul. 13, 2016 06:00", unit: "km" },
-                 { i: 1468382400, value: 0.01, date: "Jul. 13, 2016 07:00", unit: "km" },
-                 { i: 1468386000, value: 0.69, date: "Jul. 13, 2016 08:00", unit: "km" },
-                 { i: 1468389600, value: 0.03, date: "Jul. 13, 2016 09:00", unit: "km" },
-                 { i: 1468393200, value: 0.01, date: "Jul. 13, 2016 10:00", unit: "km" },
-                 { i: 1468396800, value: 0.01, date: "Jul. 13, 2016 11:00", unit: "km" },
-                 { i: 1468400400, value: 0.00, date: "Jul. 13, 2016 12:00", unit: "km" },
-                 { i: 1468404000, value: 0.00, date: "Jul. 13, 2016 13:00", unit: "km" },
-                 { i: 1468407600, value: 0.04, date: "Jul. 13, 2016 14:00", unit: "km" },
-                 { i: 1468411200, value: 0.00, date: "Jul. 13, 2016 15:00", unit: "km" },
-                 { i: 1468414800, value: 1.35, date: "Jul. 13, 2016 16:00", unit: "km" },
-                 { i: 1468418400, value: 1.31, date: "Jul. 13, 2016 17:00", unit: "km" },
-                 { i: 1468422000, value: 0.00, date: "Jul. 13, 2016 18:00", unit: "km" },
-                 { i: 1468425600, value: 0.18, date: "Jul. 13, 2016 19:00", unit: "km" },
-                 { i: 1468429200, value: 0.70, date: "Jul. 13, 2016 20:00", unit: "km" },
-                 { i: 1468432800, value: 0.09, date: "Jul. 13, 2016 21:00", unit: "km" },
-                 { i: 1468436400, value: 0.17, date: "Jul. 13, 2016 22:00", unit: "km" },
-                 { i: 1468440000, value: 1.33, date: "Jul. 13, 2016 23:00", unit: "km" }];
-
-        var last_measurement = res[res.length - 1].date + ' | <b>' + res[res.length - 1].value + ' ' + res[res.length - 1].unit + '</b>';
-        $('#last_activity_measurement').append(last_measurement);
-
-        new Morris.Bar({
-            element: 'activity-chart',
-            data: res,
-            hideHover: 'auto',
-            xkey: 'date',
-            ykeys: ['value'],
-            labels: ['Activity (km)'],
-            xLabelFormat: function (x) {
-                return (x.label.split(' ')[3]);
-            }
-        });
-    }
-
-    function mealChart() {
-        var res = [{ i: 1468392300, oh: 75, date: "Jul. 13, 2016 08:45", unit_oh: "g", insulin: 8.8, unit_i: "U" },
-            { i: 1468399500, oh: 0, date: "Jul. 13, 2016 10:45", unit_oh: "g", insulin: 2.8, unit_i: "U" },
-            { i: 1468407000, oh: 90, date: "Jul. 13, 2016 12:50", unit_oh: "g", insulin: 11.6, unit_i: "U" },
-            { i: 1468415100, oh: 25, date: "Jul. 13, 2016 17:20", unit_oh: "g", insulin: 2, unit_i: "U" },
-            { i: 1468431300, oh: 60, date: "Jul. 13, 2016 19:35", unit_oh: "g", insulin: 5.5, unit_i: "U" }];
-
-        new Morris.Bar({
-            element: 'meal-chart',
-            data: res,
-            hideHover: 'auto',
-            xkey: 'date',
-            ykeys: ['oh', 'insulin'],
-            labels: ['Carbohydrates (g)', 'Units (U)'],
-            xLabelFormat: function (x) {
-                return (x.label.split(' ')[3]);
-            }
-        });
-    }
-
     function summaryChart() {
         $(function () {
             var bg = [[Date.UTC(2016, 7, 13, 7, 15, 0), 6.3],
@@ -478,8 +384,7 @@ $(document).ready(function () {
                     [Date.UTC(2016, 7, 13, 15, 05, 0), 11.4],
                     [Date.UTC(2016, 7, 13, 19, 35, 0), 4.7],
                     [Date.UTC(2016, 7, 13, 22, 35, 0), 5.1]];
-            var activity = [[Date.UTC(2016, 7, 13, 0, 0, 0), 0.00],
-                         [Date.UTC(2016, 7, 13, 1, 0, 0), 0.00],
+            var activity = [[Date.UTC(2016, 7, 13, 1, 0, 0), 0.00],
                          [Date.UTC(2016, 7, 13, 2, 0, 0), 0.00],
                          [Date.UTC(2016, 7, 13, 3, 0, 0), 0.00],
                          [Date.UTC(2016, 7, 13, 4, 0, 0), 0.00],
@@ -501,12 +406,16 @@ $(document).ready(function () {
                          [Date.UTC(2016, 7, 13, 20, 0, 0), 0.70],
                          [Date.UTC(2016, 7, 13, 21, 0, 0), 0.09],
                          [Date.UTC(2016, 7, 13, 22, 0, 0), 0.17],
-                         [Date.UTC(2016, 7, 13, 23, 0, 0), 1.33]];
+                         [Date.UTC(2016, 7, 13, 23, 0, 0), 1.33],
+                        [Date.UTC(2016, 7, 13, 24, 0, 0), 0.00]];
 
             var carbs = [[Date.UTC(2016, 7, 13, 8, 50, 0), 0],
-                        [Date.UTC(2016, 7, 13, 12, 50, 0), 0]];
+                        [Date.UTC(2016, 7, 13, 10, 45, 0), 0],
+                        [Date.UTC(2016, 7, 13, 12, 50, 0), 0],
+                        [Date.UTC(2016, 7, 13, 17, 20, 0), 0],
+                        [Date.UTC(2016, 7, 13, 19, 35, 0), 0]];
             var carbs_data = [75, 0, 90, 25, 60];
-            var insul_data = [8.8, 2.8, 11.6, 2, 5.5];
+            var insul_data = [8.8, 2.8, 11.6, 1.2, 5.5];
 
             $('#blood-glucose-chart').highcharts({
                 chart: {
@@ -516,7 +425,12 @@ $(document).ready(function () {
                     text: ''
                 },
                 xAxis: [{
-                    type: 'datetime'
+                    type: 'datetime',
+                    labels: {
+                        formatter: function () {
+                            return Highcharts.dateFormat('%H:%M', this.value);
+                        },
+                    }
                 }],
                 yAxis: [{
                     gridLineWidth: 0,
@@ -531,7 +445,40 @@ $(document).ready(function () {
                         style: {
                             color: Highcharts.getOptions().colors[0]
                         }
-                    }
+                    },
+                    min: 2.2,
+                    max: 21.9,
+                    plotBands: [{
+                        from: 3.9,
+                        to: 7.8,
+                        color: 'rgba(68, 170, 213, 0.1)',
+                        label: {
+                            text: 'Normal',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, {
+                        from: 0,
+                        to: 3.2,
+                        color: 'rgba(255, 60, 60, 0.1)',
+                        label: {
+                            text: 'LOW',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, {
+                        from: 10.0,
+                        to: 25.0,
+                        color: 'rgba(255, 110, 50, 0.1)',
+                        label: {
+                            text: 'HIGH',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }]
                 }, {
                     gridLineWidth: 0,
                     title: {
@@ -569,21 +516,17 @@ $(document).ready(function () {
                 }],
                 tooltip: {
                     formatter: function () {
-                        var date = new Date(this.x);
-                        var hours = "0" + (date.getHours() - 2);
-                        var minutes = "0" + date.getMinutes();
-                        var time = hours.substr(-2) + ':' + minutes.substr(-2);
-                        var date_time = (monthNames[date.getMonth()] + '. ' + date.getDate() + ', ' + date.getFullYear() + ' ' + time);
+                        var date_time = Highcharts.dateFormat('%H:%M', this.x);
 
                         if (this.series.name == "Blood glucose") {
-                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Blood glucose : <b>' + this.y + ' mmol/l</b><br/>';
+                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Blood glucose : <b>' + this.y + ' mmol/l</b><br/>';
                         }
                         if (this.series.name == "Activity") {
-                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Activity: <b>' + this.y + ' km</b><br/>';
+                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Activity: <b>' + this.y + ' km</b><br/>';
                         }
                         if (this.series.name == "Carbohydrates & Insulin") {
                             var index = this.point.index;
-                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Carbohydrates: <b>' + carbs_data[index] + ' g</b><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span>Insulin: <b>' + insul_data[index] + ' U</b>';
+                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Carbohydrates: <b>' + carbs_data[index] + ' g</b><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Insulin: <b>' + insul_data[index] + ' U</b>';
                         }
                         return "no data";
                     }
@@ -595,7 +538,7 @@ $(document).ready(function () {
                     verticalAlign: 'top',
                     y: 0,
                     floating: true,
-                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                    backgroundColor: 'rgba(255, 110, 50, 0.0)'
                 },
                 series: [{
                     name: 'Activity',
@@ -618,9 +561,11 @@ $(document).ready(function () {
                     yAxis: 2,
                     data: carbs,
                     lineWidth: 0,
+                    color: "#ffa500",
                     marker: {
                         enabled: true,
-                        radius: 6
+                        radius: 6,
+                        fillColor: "#ffa500"
                     },
                     states: {
                         hover: {
@@ -629,6 +574,112 @@ $(document).ready(function () {
                     }
                 }]
             });
+            $('#last_bg_measurement').append('Jul. 13, 2016');
+        });
+    }
+
+    function inrangeChart() {
+        $(function () {
+            $('#inrange-bg').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: null
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: '< 3.2 mmol/l',
+                        y: 3.0
+                    }, {
+                        name: '3.3 - 3.9 mmol/l',
+                        y: 4.5
+                    }, {
+                        name: '4.0 - 7.8 mmol/l',
+                        y: 74.5,
+                        sliced: true,
+                        selected: true
+                    }, {
+                        name: '> 7.8 mmol/l',
+                        y: 18.0
+                    }]
+                }]
+            });
+            $('#last_inrange').append('Jul. 2016');
+        });
+    }
+
+    function activityChart() {
+        $(function () {
+            $('#average_activity').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: [
+                        'Jan',
+                        'Feb',
+                        'Mar',
+                        'Apr',
+                        'May',
+                        'Jun',
+                        'Jul',
+                        'Aug',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dec'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Activity (km)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} km</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'Activity (km)',
+                    data: [3.3, 3.1, 4.6, 5.5, 8.8, 12.3, 14.6, 13.2, 13.8, 11.5, 9.8, 7.3]
+
+                }]
+            });
+            $('#last_activity').append('May. - Jul. 2016');
         });
     }
 
@@ -785,11 +836,10 @@ $(document).ready(function () {
                 getProblems(),
                 getBloodPressure()
             ).then(summaryChart)
-             //.then(bgChart)
-             //.then(activityChart)
-             //.then(mealChart)
-             //.then(getBMI)
-             //.then(getInformations)
+             .then(inrangeChart)
+             .then(activityChart)
+             .then(getBMI)
+             .then(getInformations)
              .then(logout)
         });
     });

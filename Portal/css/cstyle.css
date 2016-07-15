@@ -37,6 +37,37 @@
     height: 400px;
 }
 
+.panel-body-small {
+    width: 100%;
+}
+
 .panel-body-timeline {
+    height: 300px;
+}
+
+.calendar-img {
+    margin-left: 8px;
+}
+
+.calendar-button {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.doctor-name {
+    color: #333;
+    font-weight: 600;
+}
+
+.doc-pic-chat{
+    background: url('../img/doctor2-small.png') 45% 40% no-repeat;
+    border: 3px solid #ECF0F1;
+    display: block;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.panel-body-chat {
     height: 300px;
 }
