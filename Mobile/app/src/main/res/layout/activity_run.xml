@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.matej.seamless.RunActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_button_food"
+                android:layout_marginTop="@dimen/fab_top"
+                android:layout_marginRight="@dimen/fab_side"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:id="@+id/toolbar_button_food" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.42km"
+                android:textSize="400px"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:id="@+id/toolbar_dot"
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_button_bg"
+                android:layout_marginTop="@dimen/fab_top"
+                android:layout_marginLeft="@dimen/fab_side"
+                android:layout_gravity="left"
+                android:background="@android:color/transparent"
+                android:id="@+id/toolbar_button_bg" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13.7.2016"
+                android:textSize="80px"
+                android:textColor="@color/colorGray"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/fab_side"
+                android:layout_marginBottom="@dimen/text_bottom"
+                android:id="@+id/toolbar_date"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23:46"
+                android:textSize="80px"
+                android:textColor="@color/colorGray"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="@dimen/fab_side"
+                android:layout_marginBottom="@dimen/text_bottom"
+                android:id="@+id/toolbar_hour"
+                />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_run" />
+
+</android.support.design.widget.CoordinatorLayout>

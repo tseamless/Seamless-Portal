@@ -526,7 +526,10 @@ $(document).ready(function () {
                         }
                         if (this.series.name == "Carbohydrates & Insulin") {
                             var index = this.point.index;
-                            return '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Carbohydrates: <b>' + carbs_data[index] + ' g</b><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Insulin: <b>' + insul_data[index] + ' U</b>';
+                            var tmp = '<span style="font-size: 10px">' + date_time + '</span><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Carbohydrates: <b>' + carbs_data[index] + ' g</b><br/>' + '<span style="color:' + this.series.color + '">\u25CF</span> Insulin: <b>' + insul_data[index] + ' U</b>';
+							if (index == 3)
+								tmp += '<br /><span style="color:' + this.series.color + '">\u25CF</span><span> no fat, added shugar</span>';
+							return tmp;
                         }
                         return "no data";
                     }

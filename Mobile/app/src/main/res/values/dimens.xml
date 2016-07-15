@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="app_bar_height">520dp</dimen>
+    <dimen name="fab_top">96dp</dimen>
+    <dimen name="fab_side">55dp</dimen>
+    <dimen name="text_bottom">110dp</dimen>
+    <dimen name="number_margin_middle">65dp</dimen>
+    <dimen name="mmol_margin">32dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+</resources>
